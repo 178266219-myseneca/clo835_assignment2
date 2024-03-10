@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: deployment-mysql
+  namespace: sqldb
+  labels:
+      app: sql
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: sql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+      - name: rohan-container
+        image: 487784775349.dkr.ecr.us-east-1.amazonaws.com/clo835_rohan_repository_mysql:v1.0
+        ports:
+        - containerPort: 3306
+          protocol: TCP
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          value: pass123
+        - name: MYSQL_DATABASE
+          value: employees
